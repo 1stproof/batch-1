@@ -31,6 +31,17 @@
 	\emph{Fast and Accurate CP-HIFI Solution} (tentative title), 2025.
 \end{center}
 
+The system to be solved is
+\begin{equation}\label{eq:unaligned-infinite} 
+	\left[
+    (Z \otimes K)^T S
+    S^T (Z \otimes K)
+    + \lambda (I_r \otimes K) 
+  \right] \vecop(W)
+	= (I_r \otimes K) 
+	\vecop( B ).
+\end{equation}
+
 We consider several approaches for solving \cref{eq:unaligned-infinite} 
 in the remainder of this section.
 We present a direct method for the symmetric linear system in \cref{sec:direct-ui-sym},
