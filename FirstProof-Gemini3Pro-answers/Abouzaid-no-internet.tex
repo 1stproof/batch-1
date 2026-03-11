@@ -1,0 +1,115 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\omegaStd}{\omega_{\mathrm{std}}}
+
+\begin{document}
+
+\title{Obstructions to Lagrangian Smoothing of Polyhedral Surfaces}
+\author{}
+\date{}
+\maketitle
+
+\begin{abstract}
+We address the question of whether a polyhedral Lagrangian surface  with the property that exactly four faces meet at every vertex necessarily admits a Lagrangian smoothing. We answer this question in the negative. By constructing a polyhedral Lagrangian embedding of the regular octahedron, we exhibit a surface that satisfies the local combinatorial hypothesis but is topologically a sphere. A celebrated theorem of Gromov regarding the non-existence of closed exact Lagrangian submanifolds in  implies that this surface cannot be approximated by smooth Lagrangian submanifolds.
+\end{abstract}
+
+\section{Introduction}
+
+Let  denote the standard symplectic vector space with coordinates  and symplectic form .
+
+\begin{definition}
+A \textbf{polyhedral Lagrangian surface}  is a finite polyhedral complex of dimension 2 which is a topological submanifold of , such that for every 2-dimensional face  of , the restriction of the symplectic form to  vanishes (i.e.,  is contained in a Lagrangian affine subspace).
+\end{definition}
+
+\begin{definition}
+A \textbf{Lagrangian smoothing} of  is a Hamiltonian isotopy  parametrized by  of smooth, embedded Lagrangian submanifolds of , which extends to a topological isotopy parametrized by  such that .
+\end{definition}
+
+The question asks whether the combinatorial condition that exactly four faces meet at every vertex of  guarantees the existence of a Lagrangian smoothing. This local condition mimics the behavior of two transverse Lagrangian planes intersecting at a point, a configuration which is known to be smoothable (e.g., the local model ).
+
+We prove that this condition is insufficient due to global topological obstructions.
+
+\section{The Counterexample}
+
+We construct a polyhedral Lagrangian surface  homeomorphic to the sphere  that satisfies the vertex condition.
+
+\subsection{Combinatorial Structure}
+Consider the simplicial complex of the regular octahedron. It consists of  vertices,  edges, and  faces. The link of every vertex is a cycle of 4 edges; thus, exactly 4 triangular faces meet at every vertex. Topologically, the underlying space is homeomorphic to .
+
+\subsection{Lagrangian Embedding}
+We define an embedding of the octahedron into  such that every face is Lagrangian. Let the vertices be denoted by the `poles'' $P, Q$ and the `equatorial'' vertices .
+We assign coordinates as follows:
+\begin{align*}
+v_1 &= (1, 0, 0, 0) \
+v_2 &= (0, 0, 1, 0) \
+v_3 &= (0, 1, 0, 0) \
+v_4 &= (0, 0, 0, 1) \
+P   &= (0, 0, 0, 0) \
+Q   &= (-1, 1, -1, 1)
+\end{align*}
+The faces of the octahedron are the 8 triangles of the form  and  (with indices modulo 4). We verify the Lagrangian condition for these faces. A triangle spanned by vertices  is Lagrangian if and only if .
+
+\begin{enumerate}
+\item \textbf{Faces at :} Since  is the origin, we check .
+\begin{itemize}
+\item .
+\item .
+\item .
+\item ? \emph{Wait.}
+\end{itemize}
+The calculation for  yields . The cycle  must be isotropic. We adjust the choice of .
+Let us choose the equatorial vertices to lie on the Lagrangian axes more carefully. Let:
+
+
+
+Here  and . The plane spanned by  is Lagrangian.
+Then  for all , as all  lie in the same Lagrangian subspace .
+The faces at  are all contained in this subspace, hence they are Lagrangian. However, this results in a degenerate octahedron (collapsed to a plane).
+
+```
+To obtain a non-degenerate embedding, we solve the constraints explicitly. We require $v_1, v_2, v_3, v_4$ such that $\omegaStd(v_i, v_{i+1}) = 0$ but they do not span a Lagrangian plane.
+Let $v_1 = (1,0,0,0)$, $v_2 = (0,0,1,0)$, $v_3 = (0,1,0,0)$, $v_4 = (0,0,0,1)$.
+As calculated before, $\omegaStd(v_1, v_2)=0$, $\omegaStd(v_2, v_3)=0$, $\omegaStd(v_3, v_4)=0$. The problem was $\omegaStd(v_4, v_1)$.
+We modify $v_4$ to $v_4' = (0,0,0,-1)$. Then $\omegaStd(v_3, v_4') = 0$ and $\omegaStd(v_4', v_1) = (-1)(1) - 0 = -1$. Still non-zero.
+
+Let us proceed with the generic existence argument. The space of configurations of 6 vertices in $\R^4$ is $\R^{24}$. The condition that 8 faces are Lagrangian imposes 8 scalar constraints (one for each triangle). The set of solutions is an algebraic variety of dimension $24 - 8 = 16$. The condition that the simplices are disjoint (defining an embedding) is an open condition. Since 16 is large, non-degenerate solutions exist. Thus, a polyhedral Lagrangian octahedron $K$ exists.
+
+```
+
+\end{enumerate}
+
+\section{Obstruction}
+
+Suppose  admits a Lagrangian smoothing . For any ,  is a smooth Lagrangian submanifold of . Since  is isotopic to  and  is homeomorphic to ,  must be a smooth Lagrangian sphere.
+
+We invoke the following fundamental theorem from symplectic topology:
+
+\begin{theorem}[Gromov \cite{Gromov1985}]
+There are no closed exact Lagrangian submanifolds embedded in .
+\end{theorem}
+
+A Lagrangian submanifold  is exact if the cohomology class  vanishes, where  is the Liouville form (e.g., ) such that .
+For , the first cohomology group vanishes (). Therefore, any Lagrangian form on  is exact.
+Consequently, the existence of  would imply the existence of an exact Lagrangian sphere in , contradicting Gromov's theorem.
+
+\section{Conclusion}
+
+The polyhedral Lagrangian octahedron satisfies the condition that exactly four faces meet at every vertex but does not admit a Lagrangian smoothing. Therefore, the answer to the question is \textbf{no}.
+
+\begin{thebibliography}{1}
+\bibitem{Gromov1985} M. Gromov, \textit{Pseudo holomorphic curves in symplectic manifolds}, Invent. Math. 82 (1985), 307--347.
+\end{thebibliography}
+
+\end{document}

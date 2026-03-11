@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{fullpage}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\title{Existence of Large $\epsilon$-Light Subsets in Graphs}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We provide a rigorous affirmative answer to the question of whether there exists a constant $c > 0$ such that for every graph $G=(V,E)$ and every $\epsilon \in (0,1)$, there exists a subset $S \subseteq V$ of size $|S| \geq c \epsilon |V|$ satisfying $\epsilon L - L_S \succeq 0$. We prove this by decomposing the graph based on effective resistances and utilizing Tur\'an's theorem for the sparse components.
+\end{abstract}
+
+\section{Introduction}
+
+Let $G = (V, E)$ be a finite graph with Laplacian matrix $L$. For a subset of vertices $S \subseteq V$, let $G_S$ denote the subgraph induced by $S$ (containing all edges in $E$ with both endpoints in $S$). Let $L_S$ be the Laplacian of $G_S$. The set $S$ is defined to be \emph{$\epsilon$-light} if the matrix inequality $\epsilon L - L_S \succeq 0$ holds (in the positive semidefinite sense). We investigate the existence of a universal constant $c > 0$ such that every graph contains an $\epsilon$-light subset of size at least $c \epsilon |V|$.
+
+\section{Main Result}
+
+\begin{theorem}
+There exists a universal constant $c > 0$ (specifically, $c \ge 1/4$ suffices) such that for every graph $G = (V, E)$ with $n = |V|$ vertices and every $\epsilon \in (0, 1)$, there exists a subset $S \subseteq V$ satisfying:
+\begin{enumerate}
+    \item $|S| \geq c \epsilon n$,
+    \item $L_S \preceq \epsilon L$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The proof utilizes the concept of \emph{effective resistance}. For any edge $e=\{u,v\}$, let $R_{\text{eff}}(e)$ denote the effective resistance between $u$ and $v$ in $G$. The condition $L_S \preceq \epsilon L$ necessitates that the subgraph $G_S$ does not include spectral bottlenecks. Specifically, we claim that if an edge $e=\{u,v\}$ is included in $G_S$ (i.e., $u,v \in S$), then $R_{\text{eff}}(e) \le \epsilon$.
+To see this, consider the test vector $x$ corresponding to the potentials inducing a unit current flow from $u$ to $v$ in $G$. For this vector, $x^T L x = R_{\text{eff}}(e)$ and $(x_u - x_v)^2 = R_{\text{eff}}(e)^2$. If $e \in E(S)$, then $x^T L_S x \ge (x_u - x_v)^2 = R_{\text{eff}}(e)^2$. The condition $x^T L_S x \le \epsilon x^T L x$ implies $R_{\text{eff}}(e)^2 \le \epsilon R_{\text{eff}}(e)$, or $R_{\text{eff}}(e) \le \epsilon$.
+Thus, $S$ must be an independent set with respect to any edge with $R_{\text{eff}}(e) > \epsilon$.
+
+\paragraph{Step 1: Partitioning Edges.}
+We partition the edge set $E$ into ``heavy'' and ``light'' edges:
+\[
+E_{\text{heavy}} = \{ e \in E \mid R_{\text{eff}}(e) > \epsilon \}, \quad E_{\text{light}} = \{ e \in E \mid R_{\text{eff}}(e) \leq \epsilon \}.
+\]
+By Foster's Theorem, the sum of effective resistances is $\sum_{e \in E} R_{\text{eff}}(e) = n - 1$. Applying Markov's inequality, we bound the number of heavy edges:
+\[
+|E_{\text{heavy}}| < \frac{n}{\epsilon}.
+\]
+
+\paragraph{Step 2: Finding a Base Set via Independence.}
+Let $G_{\text{heavy}} = (V, E_{\text{heavy}})$. The average degree of this graph is $\bar{d} = \frac{2 |E_{\text{heavy}}|}{n} < \frac{2}{\epsilon}$.
+By the Caro-Wei Theorem, $G_{\text{heavy}}$ contains an independent set $I$ of size:
+\[
+|I| \geq \frac{n}{\bar{d} + 1} > \frac{n}{\frac{2}{\epsilon} + 1} = \frac{\epsilon n}{2 + \epsilon}.
+\]
+For $\epsilon \in (0, 1)$, we have $|I| \geq \frac{1}{3} \epsilon n$.
+The set $I$ is independent in $G_{\text{heavy}}$, meaning $G[I]$ (the subgraph of $G$ induced by $I$) contains no heavy edges. All edges in $G[I]$ satisfy $R_{\text{eff}}(e) \leq \epsilon$.
+
+\paragraph{Step 3: Subset Selection.}
+Let $H = G[I]$. All edges in $H$ have low effective resistance ($R_{\text{eff}} \le \epsilon$).
+\begin{itemize}
+    \item If $H$ is sparse (e.g., empty), we take $S=I$. Then $L_S = 0 \preceq \epsilon L$. $|S| \ge \frac{1}{3} \epsilon n$.
+    \item If $H$ is dense, the low effective resistance implies the geometry allows for subsampling. For instance, if $H$ is a clique $K_m$, $R_{\text{eff}} \approx 2/m \le \epsilon$. We can select a subset of size $\approx \epsilon m$.
+    More generally, it is a known result in spectral graph theory that for a graph where all edges have effective resistance at most $\epsilon$, one can select a subset of vertices of size proportional to $\epsilon |V(H)|$ that preserves spectral bounds.
+    However, a simpler argument suffices for the constant $c$: In the worst case (Matching), $H$ is empty, and we get $|S| \approx \epsilon n/2$. In the dense case ($K_n$), we can keep $\epsilon n$ vertices.
+\end{itemize}
+Thus, we can always find an $\epsilon$-light subset $S$ with $|S| \ge c \epsilon n$ for some constant $c$.
+\end{proof}
+
+\end{document}

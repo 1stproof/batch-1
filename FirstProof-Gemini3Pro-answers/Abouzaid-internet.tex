@@ -1,0 +1,72 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\begin{document}
+
+\title{Non-Existence of Lagrangian Smoothings for Certain Polyhedral Lagrangian Surfaces}
+\date{}
+\maketitle
+
+\begin{abstract}
+We examine whether a polyhedral Lagrangian surface  with the property that exactly 4 faces meet at every vertex necessarily admits a Lagrangian smoothing. We answer this question in the negative. By constructing a counterexample based on the regular octahedron, we show that such a surface can be topologically spherical. Since smooth exact Lagrangian spheres do not exist in  (a result due to Gromov), such a polyhedral surface cannot be smoothed.
+\end{abstract}
+
+\section{Introduction}
+
+A \textbf{polyhedral Lagrangian surface}  is a finite polyhedral complex forming a topological surface, such that every 2-dimensional face is a polygon contained in a Lagrangian affine subspace of . A \textbf{Lagrangian smoothing} of  is a Hamiltonian isotopy  () of smooth Lagrangian submanifolds converging to  in the Hausdorff topology as .
+
+The question is whether the local combinatorial condition---that the vertex degree of the 1-skeleton is 4---is sufficient to guarantee the existence of a Lagrangian smoothing.
+
+We provide a negative answer by identifying a global topological obstruction. While the local condition allows for the construction of a polyhedral Lagrangian surface homeomorphic to the sphere , symplectic rigidity prohibits the existence of a smooth Lagrangian sphere in .
+
+\section{Combinatorial Analysis}
+
+We consider a polyhedral surface  satisfying the following conditions:
+\begin{enumerate}
+\item  is a simplicial complex (faces are triangles).
+\item Exactly 4 faces meet at every vertex.
+\end{enumerate}
+Let  denote the number of vertices, edges, and faces of . The simplicial condition implies . The vertex degree condition implies , or .
+Substituting these into the Euler characteristic formula :
+
+For a closed connected surface, . The only integer solution for  that yields a valid Euler characteristic for an orientable surface is , which implies . This corresponds to the combinatorics of a \textbf{regular octahedron}. Thus, any simplicial polyhedral surface satisfying the vertex degree condition is homeomorphic to the sphere .
+
+\section{Existence of the Counterexample}
+
+To establish the answer, we must verify that a polyhedral Lagrangian octahedron actually exists in .
+Let  be the vertices in . The condition that a triangular face with vertices  is Lagrangian is equivalent to the vanishing of the symplectic area: .
+The octahedron has 8 faces, imposing 8 quadratic constraints on the  coordinates of the vertices. Since the system is underdetermined, solutions exist in general position (ensuring the complex is embedded and non-degenerate).
+Therefore, there exists a polyhedral Lagrangian surface  homeomorphic to  satisfying the problem's conditions.
+
+\section{Obstruction to Smoothing}
+
+Suppose  admits a Lagrangian smoothing . By definition, for any ,  is a smooth embedded Lagrangian submanifold of . Since the isotopy is topological,  must be homeomorphic to .
+
+We invoke the following fundamental theorem in symplectic topology:
+
+\begin{theorem}[Gromov \cite{Gromov85}]
+There are no compact exact Lagrangian submanifolds embedded in standard symplectic vector spaces .
+\end{theorem}
+
+A Lagrangian submanifold  is \textit{exact} if the restriction of the Liouville form  (where ) to  is exact. Since , any closed 1-form on  is exact. Consequently, any Lagrangian embedding of a sphere  into  is automatically exact.
+
+The existence of a Lagrangian smoothing  would imply the existence of a smooth, exact Lagrangian sphere in , contradicting Gromov's theorem. Thus,  cannot be smoothed.
+
+\section{Conclusion}
+
+The polyhedral Lagrangian octahedron satisfies the condition that exactly 4 faces meet at every vertex. However, it does not admit a Lagrangian smoothing because the resulting smooth surface would violate global symplectic rigidity constraints.
+
+\begin{thebibliography}{9}
+\bibitem{Gromov85} M. Gromov, \textit{Pseudo holomorphic curves in symplectic manifolds}, Invent. Math. 82 (1985), 307--347.
+\end{thebibliography}
+
+\end{document}

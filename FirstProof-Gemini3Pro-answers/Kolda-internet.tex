@@ -1,0 +1,134 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm, algorithm, algpseudocode, bm}
+\usepackage[margin=1in]{geometry}
+
+% Notation macros
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\vecop}{\operatorname{vec}}
+\newcommand{\matop}{\operatorname{mat}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\Kron}{\otimes}
+\newcommand{\Khatri}{\odot}
+\newcommand{\Hadamard}{\ast}
+
+\title{Efficient Iterative Solver for RKHS-Constrained Tensor CP Decomposition with Unaligned Data}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We address the computational challenge of solving the mode-$k$ subproblem in the Alternating Least Squares (ALS) optimization for a CP tensor decomposition where the data is unaligned (sparse) and the mode factors are constrained to a Reproducing Kernel Hilbert Space (RKHS). We propose a solution using the Preconditioned Conjugate Gradient (PCG) method. By exploiting the sparsity of the selection operator and the Kronecker structure of the regularization, we derive a matrix-vector multiplication scheme with complexity linear in the number of observations, $O(qr)$. Furthermore, we introduce a spectral preconditioner based on a mean-field approximation of the sampling pattern, which can be efficiently inverted via eigendecomposition. This approach reduces the complexity from cubic in the total parameter space to quadratic in the mode dimension and linear in the sparsity.
+\end{abstract}
+
+\section{Problem Formulation}
+
+We consider the estimation of the mode-$k$ factor matrix $A_k$ in a rank-$r$ CP decomposition of a $d$-way tensor $\mathcal{T}$. The mode-$k$ factor is modeled as $A_k = KW$, where $K \in \R^{n \times n}$ is a symmetric positive semi-definite kernel matrix associated with the RKHS, and $W \in \R^{n \times r}$ is the weight matrix. The tensor contains missing entries, and we observe only a subset indexed by the selection matrix $S$.
+
+The optimization problem requires solving the following linear system for the vectorized weights $\mathbf{w} = \vecop(W) \in \R^{nr}$:
+\begin{equation} \label{eq:system}
+    \mathcal{H} \mathbf{w} = \mathbf{b},
+\end{equation}
+where the system matrix $\mathcal{H}$ and the right-hand side $\mathbf{b}$ are given by:
+\begin{align}
+    \mathcal{H} &= (Z \Kron K)^T S S^T (Z \Kron K) + \lambda (I_r \Kron K), \\
+    \mathbf{b} &= (I_r \Kron K) \vecop(B).
+\end{align}
+Here, $Z \in \R^{M \times r}$ is the Khatri-Rao product of the fixed factor matrices, and $B = T Z$ is the Matricized Tensor Times Khatri-Rao Product (MTTKRP) of the zero-filled unfolded tensor $T$. The term $\lambda > 0$ is a regularization parameter.
+
+Directly inverting $\mathcal{H}$ requires $O(n^3 r^3)$ operations, which is prohibitive. We propose an efficient iterative solver.
+
+\section{Preconditioned Conjugate Gradient Method}
+
+We utilize the Preconditioned Conjugate Gradient (PCG) algorithm, which is suitable for symmetric positive definite systems. The efficiency of PCG relies on two components: a fast Matrix-Vector Product (MVP) and a fast Preconditioner Solve.
+
+\subsection{Efficient Matrix-Vector Product}
+
+We compute $\mathbf{y} = \mathcal{H} \mathbf{x}$ for an arbitrary vector $\mathbf{x} = \vecop(X)$, with $X \in \R^{n \times r}$, without explicitly forming $\mathcal{H}$ or dense tensors of size $N$. The product decomposes into a data term and a regularization term:
+\[
+    \mathcal{H} \mathbf{x} = \underbrace{(Z \Kron K)^T S S^T (Z \Kron K) \vecop(X)}_{\text{Data Term}} + \underbrace{\lambda \vecop(K X)}_{\text{Reg. Term}}.
+\]
+
+\subsubsection{Regularization Term}
+The regularization term is computed efficiently via matrix multiplication:
+\[ Y_{\text{reg}} = \lambda K X. \]
+\textbf{Complexity:} $O(n^2 r)$.
+
+\subsubsection{Data Term}
+The operator $(Z \Kron K)$ maps the weights to the full tensor space (vectorized). The term $S S^T$ acts as a projection onto the set of observed indices $\Omega$.
+Let $\Omega = \{(i_s, j_s)\}_{s=1}^q$ be the set of indices for the observed entries, where $i_s \in \{1,\dots,n\}$ is the mode-$k$ index and $j_s \in \{1,\dots,M\}$ is the index in the unfolded dimension.
+
+\begin{enumerate}
+    \item \textbf{Kernel Smoothing:} Compute $\tilde{X} = K X$. Complexity: $O(n^2 r)$.
+    
+    \item \textbf{Sparse Forward Projection:} We compute the values of the tensor reconstruction only at indices in $\Omega$.
+    \[ v_s = (\tilde{X} Z^T)_{i_s, j_s} = \sum_{p=1}^r \tilde{X}_{i_s, p} Z_{j_s, p}, \quad \text{for } s = 1, \dots, q. \]
+    Note: The row $Z_{j_s, :}$ can be computed on-the-fly from the component factor matrices using the definition of the Khatri-Rao product, avoiding the storage of $Z$.
+    Complexity: $O(q r)$.
+    
+    \item \textbf{Sparse Backward Projection (Adjoint):} Let $\mathbf{v} \in \R^q$ be the vector with entries $v_s$. We must compute $(Z \Kron K)^T S \mathbf{v}$. This is equivalent to $\vecop(K E Z)$, where $E \in \R^{n \times M}$ is a sparse matrix with entries $v_s$ at $(i_s, j_s)$.
+    
+    First, compute the intermediate matrix $G = E Z \in \R^{n \times r}$. The $i$-th row of $G$ is the sum of rows of $Z$ weighted by the residuals:
+    \[ G_{i, :} = \sum_{s : i_s = i} v_s Z_{j_s, :}. \]
+    Complexity: $O(q r)$.
+    
+    Then, apply the kernel: $Y_{\text{data}} = K G$. Complexity: $O(n^2 r)$.
+\end{enumerate}
+
+\textbf{Total MVP Complexity:} $O(qr + n^2 r)$. This avoids any dependence on the unobserved dimension $N-q$.
+
+\subsection{Mean-Field Spectral Preconditioner}
+
+The Hessian $\mathcal{H}$ is ill-conditioned due to the kernel $K$ and the sampling $S$. We construct a preconditioner $P$ by approximating the sampling operator $S S^T$ with its expectation under uniform sampling, $S S^T \approx \frac{q}{N} I_N$.
+\[
+    P = \frac{q}{N} (Z \Kron K)^T (Z \Kron K) + \lambda (I_r \Kron K).
+\]
+Using the mixed-product property of Kronecker products and the symmetry of $K$:
+\[
+    P = \frac{q}{N} (Z^T Z \Kron K^2) + \lambda (I_r \Kron K).
+\]
+This matrix has a structure that allows for efficient inversion using eigendecomposition.
+
+\subsubsection{Preconditioner Setup (Once per subproblem)}
+\begin{enumerate}
+    \item Compute the Gram matrix $G_Z = Z^T Z$. This can be computed efficiently from the factor matrices using element-wise products: $G_Z = \bigHadamard_{m \neq k} (A_m^T A_m)$. Complexity: $O(d r^2)$.
+    \item Eigendecomposition of $G_Z$: $G_Z = V \Sigma_Z V^T$, with $\Sigma_Z = \text{diag}(\nu_1, \dots, \nu_r)$. Complexity: $O(r^3)$.
+    \item Eigendecomposition of $K$: $K = U \Sigma_K U^T$, with $\Sigma_K = \text{diag}(\mu_1, \dots, \mu_n)$. Complexity: $O(n^3)$.
+\end{enumerate}
+
+The preconditioner $P$ shares the eigenbasis $V \Kron U$. The eigenvalues of $P$ are:
+\[ d_{ji} = \frac{q}{N} \nu_j \mu_i^2 + \lambda \mu_i, \quad j=1\dots r, i=1\dots n. \]
+
+\subsubsection{Preconditioner Solve (Per Iteration)}
+To solve $P \mathbf{z} = \mathbf{r}_{\text{res}}$ for $\mathbf{z} = \vecop(Z_{\text{sol}})$:
+\begin{enumerate}
+    \item Reshape residual to matrix $R \in \R^{n \times r}$.
+    \item Transform to eigenbasis: $\tilde{R} = U^T R V$. Complexity: $O(n^2 r + n r^2)$.
+    \item Element-wise scaling: $(\tilde{Z})_{ij} = (\tilde{R})_{ij} / d_{ji}$. Complexity: $O(nr)$.
+    \item Transform back: $Z_{\text{sol}} = U \tilde{Z} V^T$. Complexity: $O(n^2 r + n r^2)$.
+\end{enumerate}
+
+\section{Complexity Analysis}
+
+The computational complexity of the proposed method is summarized below. We assume $r \ll n \ll q \ll N$.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Phase} & \textbf{Complexity} & \textbf{Notes} \\ \hline
+\textbf{Setup} & $O(n^3 + r^3)$ & Dominated by Eigendecomposition of $K$ \\ \hline
+\textbf{MVP (per iter)} & $O(qr + n^2 r)$ & Linear in observed data size $q$ \\ \hline
+\textbf{Precond (per iter)} & $O(n^2 r + nr^2)$ & Matrix multiplications in eigenbasis \\ \hline
+\textbf{Total} & $O(n^3 + k_{\text{iter}}(qr + n^2r))$ & Significantly faster than $O(n^3 r^3)$ \\ \hline
+\end{tabular}
+\caption{Complexity Analysis of the PCG Solver.}
+\end{table}
+
+This method effectively handles the infinite-dimensional nature of the mode via the kernel matrix $K$ and efficiently handles the missing data via sparse projections, providing a rigorous and scalable solution.
+
+\end{document}

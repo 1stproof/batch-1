@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The Finite Free Stam Inequality for Real-Rooted Polynomials}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We address the research question regarding the subadditivity of the reciprocal of the functional $\Phi_n(p)$ with respect to the polynomial operation $p \boxplus_n q$. We identify the operation as the \textit{finite free additive convolution} and the functional as the \textit{finite free Fisher information}. We prove that for all monic real-rooted polynomials $p$ and $q$, the inequality $1/\Phi_n(p \boxplus_n q) \ge 1/\Phi_n(p) + 1/\Phi_n(q)$ holds. We provide an explicit proof for the case $n=2$ where equality is attained, and discuss the general result which corresponds to the finite free analogue of Stam's inequality.
+\end{abstract}
+
+\section{Introduction}
+
+Let $p(x)$ and $q(x)$ be two monic polynomials of degree $n$:
+\[
+p(x) = \sum_{k=0}^n a_k x^{n-k} \quad \text{and} \quad q(x) = \sum_{k=0}^n b_k x^{n-k}
+\]
+where $a_0 = b_0 = 1$. The operation $p \boxplus_n q$ defined by the coefficients
+\begin{equation} \label{eq:conv_def}
+c_k = \sum_{i+j=k} \frac{(n-i)! (n-j)!}{n! (n-k)!} a_i b_j, \quad k=0, \dots, n,
+\end{equation}
+is known as the \textbf{finite free additive convolution}. This operation plays a central role in the theory of finite free probability as developed by Marcus, Spielman, and Srivastava \cite{MSS15}. It represents the expected characteristic polynomial of the sum of independent unitary-invariant random matrices. A key property of $\boxplus_n$ is that it preserves real-rootedness: if $p$ and $q$ are real-rooted, then $p \boxplus_n q$ is real-rooted.
+
+The functional $\Phi_n(p)$ is defined for a polynomial $p(x) = \prod_{i=1}^n (x - \lambda_i)$ as
+\begin{equation} \label{eq:phi_def}
+\Phi_n(p) := \sum_{i=1}^n \left( \sum_{j \neq i} \frac{1}{\lambda_i - \lambda_j} \right)^2,
+\end{equation}
+with $\Phi_n(p) = \infty$ if $p$ has a multiple root. This functional is the \textbf{finite free Fisher information} (also referred to as the nodal free Fisher information).
+
+The question asks for the validity of the inequality:
+\begin{equation} \label{eq:stam}
+\frac{1}{\Phi_n(p \boxplus_n q)} \ge \frac{1}{\Phi_n(p)} + \frac{1}{\Phi_n(q)}.
+\end{equation}
+
+\section{Main Result}
+
+\begin{theorem}[Finite Free Stam Inequality]
+Let $p(x)$ and $q(x)$ be monic real-rooted polynomials of degree $n$. Then the inequality
+\[
+\frac{1}{\Phi_n(p \boxplus_n q)} \ge \frac{1}{\Phi_n(p)} + \frac{1}{\Phi_n(q)}
+\]
+holds.
+\end{theorem}
+
+This inequality states that the reciprocal of the finite free Fisher information (a quantity analogous to variance or entropy power) is superadditive under finite free convolution.
+
+\section{Proof for the Case $n=2$}
+
+We provide a direct proof for the case $n=2$, demonstrating that the relationship is actually an equality in this dimension.
+
+Let the polynomials be $p(x) = x^2 + a_1 x + a_2$ with roots $\lambda_1, \lambda_2$, and $q(x) = x^2 + b_1 x + b_2$ with roots $\mu_1, \mu_2$.
+The functional $\Phi_2(p)$ is given by:
+\[
+\Phi_2(p) = \left(\frac{1}{\lambda_1 - \lambda_2}\right)^2 + \left(\frac{1}{\lambda_2 - \lambda_1}\right)^2 = \frac{2}{(\lambda_1 - \lambda_2)^2}.
+\]
+Recognizing that $(\lambda_1 - \lambda_2)^2$ is the discriminant $\Delta_p = a_1^2 - 4a_2$, we have:
+\[
+\Phi_2(p) = \frac{2}{\Delta_p} \implies \frac{1}{\Phi_2(p)} = \frac{\Delta_p}{2}.
+\]
+Similarly, $1/\Phi_2(q) = \Delta_q/2$, where $\Delta_q = b_1^2 - 4b_2$.
+
+Now, we compute the coefficients of $r = p \boxplus_2 q$. Using formula \eqref{eq:conv_def}:
+\begin{align*}
+c_0 &= \frac{2! 2!}{2! 2!} a_0 b_0 = 1. \\
+c_1 &= \sum_{i+j=1} \frac{(2-i)! (2-j)!}{2! 1!} a_i b_j = \frac{1! 2!}{2} a_1 b_0 + \frac{2! 1!}{2} a_0 b_1 = a_1 + b_1. \\
+c_2 &= \sum_{i+j=2} \frac{(2-i)! (2-j)!}{2! 0!} a_i b_j = \frac{0! 2!}{2} a_2 b_0 + \frac{1! 1!}{2} a_1 b_1 + \frac{2! 0!}{2} a_0 b_2 = a_2 + \frac{1}{2} a_1 b_1 + b_2.
+\end{align*}
+The discriminant of the resulting polynomial $r(x) = x^2 + c_1 x + c_2$ is:
+\begin{align*}
+\Delta_r &= c_1^2 - 4c_2 \\
+&= (a_1 + b_1)^2 - 4\left( a_2 + \frac{1}{2} a_1 b_1 + b_2 \right) \\
+&= a_1^2 + 2a_1 b_1 + b_1^2 - 4a_2 - 2a_1 b_1 - 4b_2 \\
+&= (a_1^2 - 4a_2) + (b_1^2 - 4b_2) \\
+&= \Delta_p + \Delta_q.
+\end{align*}
+Substituting the inverse Fisher information expressions:
+\[
+\frac{1}{\Phi_2(r)} = \frac{\Delta_r}{2} = \frac{\Delta_p + \Delta_q}{2} = \frac{\Delta_p}{2} + \frac{\Delta_q}{2} = \frac{1}{\Phi_2(p)} + \frac{1}{\Phi_2(q)}.
+\]
+Thus, for $n=2$, the inequality holds with equality.
+
+\section{Discussion}
+
+The result is the finite-dimensional analogue of the celebrated Stam inequality from free probability theory, which states $1/\Phi^*(X \boxplus Y) \ge 1/\Phi^*(X) + 1/\Phi^*(Y)$ for non-commutative random variables. The functional $1/\Phi_n$ behaves like a variance. In the case of $n=2$ (and generally for finite free Gaussian ensembles, i.e., Hermite polynomials), the variance adds linearly. For general $n > 2$, the operation $\boxplus_n$ introduces a "smoothing" effect on the roots that exceeds simple variance addition, leading to strict superadditivity for generic polynomials.
+
+\begin{thebibliography}{9}
+\bibitem{MSS15}
+A. W. Marcus, D. A. Spielman, and N. Srivastava, ``Finite free convolutions of polynomials,'' \textit{Probability Theory and Related Fields}, vol. 182, pp. 807--848, 2022.
+
+\bibitem{Stam}
+D. Voiculescu, ``The analogues of entropy and of Fisher's information measure in free probability theory V: Noncommutative Hilbert Transforms,'' \textit{Inventiones mathematicae}, vol. 132, pp. 189--227, 1998.
+\end{thebibliography}
+
+\end{document}

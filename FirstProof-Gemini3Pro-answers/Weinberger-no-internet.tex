@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{answer}{Answer}
+
+\begin{document}
+
+\title{Non-Existence of Compact Manifolds with Rationally Acyclic Universal Covers for Lattices with Torsion}
+\author{}
+\date{}
+\maketitle
+
+\begin{abstract}
+We address the question of whether a uniform lattice  in a real semi-simple Lie group, which contains 2-torsion, can be the fundamental group of a compact manifold without boundary whose universal cover is acyclic over the rational numbers . Using the Hattori-Stallings trace on the Grothendieck group , we prove that the existence of such a manifold is impossible due to the presence of torsion.
+\end{abstract}
+
+\section{Answer}
+
+\begin{answer}
+No, it is not possible.
+\end{answer}
+
+\section{Mathematical Reasoning}
+
+We establish the non-existence of such a manifold by deriving a contradiction from the existence of a non-trivial torsion element in  and the finite dimensionality of the manifold .
+
+Let  be a uniform lattice in a real semi-simple Lie group, and suppose  contains an element  of order 2. Assume, for the sake of contradiction, that there exists a compact manifold  without boundary such that  and the universal covering space  is acyclic over .
+
+\subsection{Algebraic Formulation}
+
+Since  is a compact manifold, it has the homotopy type of a finite CW-complex. Let . The cellular chain complex of the universal cover with rational coefficients, denoted , consists of free -modules. Since  is finite, these modules are finitely generated. Specifically, if  has  cells in dimension , then
+
+The condition that  is -acyclic means that its reduced rational homology vanishes. Consequently, the augmented chain complex is exact:
+\begin{equation}
+0 \to C_n(\tilde{M}; \mathbb{Q}) \to \dots \to C_0(\tilde{M}; \mathbb{Q}) \to \mathbb{Q} \to 0,
+\end{equation}
+where  denotes the trivial -module.
+
+This exact sequence implies an equality in the Grothendieck group  of finitely generated projective -modules:
+\begin{equation}
+[\mathbb{Q}] = \sum_{k=0}^n (-1)^k [C_k(\tilde{M}; \mathbb{Q})].
+\end{equation}
+
+\subsection{The Hattori-Stallings Trace}
+
+We employ the Hattori-Stallings trace (or character trace), a homomorphism , where  is the set of conjugacy classes of . For a group element , let  denote the coefficient of the conjugacy class of  in the trace of a projective module . Equivalently, this is the character of the representation  evaluated at .
+
+We evaluate the trace at the torsion element .
+
+\begin{enumerate}
+\item \textbf{Left-Hand Side:} The module  is the trivial representation. The action of any element  is the identity map on . Therefore, the character value is:
+
+```
+\item \textbf{Right-Hand Side:} Consider the term $[C_k(\tilde{M}; \mathbb{Q})]$. This is the class of a free module $(\mathbb{Q}\Gamma)^{c_k}$. The action of $\gamma$ on the basis $\Gamma$ is given by right multiplication $x \mapsto x\gamma$. Since $\Gamma$ acts freely on itself, and $\gamma \neq 1$, this action permutes the basis elements without fixed points. In the regular representation, the trace of any non-identity element is zero. Thus:
+\[
+T_\gamma([C_k(\tilde{M}; \mathbb{Q})]) = 0.
+\]
+
+```
+
+\end{enumerate}
+
+\subsection{Contradiction}
+
+Applying the trace  to the equality in equation (2), we obtain:
+
+The equation  is a contradiction.
+
+\section{Conclusion}
+
+The contradiction arises from the assumption that a group with non-trivial torsion can act freely on a finite-dimensional -acyclic complex (specifically, the universal cover of a compact manifold). Therefore,  cannot be the fundamental group of a compact manifold whose universal cover is acyclic over .
+
+\end{document}

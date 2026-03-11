@@ -9,6 +9,9 @@ Questions are drawn from algebraic combinatorics, spectral graph theory, algebra
 - `First_Proof.tex` — LaTeX source of the paper, including problem statements
 - `FirstProofSolutionsComments.pdf` — Solutions and commentary (released February 13, 2026)
 - `Supplementary Files/` — Encrypted archive of original solutions and AI logs
+- `author-solutions/` — Author solutions to the problems as individual LaTeX and PDF files. (There were all included in the original `FirstProofSolutionsComments.pdf` but are now separated out for ease of access and readability.)
+- `FirstProof-Gemini3Pro-answers/` — AI-generated answers from the Gemini 3 Pro model. LaTeX source files were originally provided in `Supplementary Files\FirstProof_AI_logs.zip`, but we include them here for easier access. 
+- `batch-1\FirstProof-GPT5.2Pro-answers\` — AI-generated answers from the GPT-5.2 Pro model. PDF files were originally provided in `Supplementary Files\FirstProof_AI_logs.zip`, but we include them here for easier access.
 
 ## Links
 

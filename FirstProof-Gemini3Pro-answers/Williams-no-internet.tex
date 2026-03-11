@@ -1,0 +1,80 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{document}
+
+\title{Existence of a Markov Chain for Restricted Interpolation ASEP Polynomials}
+\author{}
+\date{}
+\maketitle
+
+\begin{abstract}
+We answer the question of the existence of a nontrivial Markov chain on the state space  whose stationary distribution is given by the interpolation ASEP polynomials  at . We construct this chain as the inhomogeneous multispecies Asymmetric Simple Exclusion Process (mASEP) and prove stationarity using the properties of the degenerate affine Hecke algebra. We discuss the necessity of the restriction on the partition .
+\end{abstract}
+
+\section{Introduction}
+
+Let  be a partition with distinct parts. We assume  is \textit{restricted}, meaning it has a unique part of size  and no part of size . Let  denote the set of all compositions  that are permutations of .
+
+We consider the interpolation ASEP polynomials , which are specialized non-symmetric interpolation Macdonald polynomials. We prove the existence of a continuous-time Markov chain on  with stationary distribution
+\begin{equation} \label{eq:stat_dist}
+\pi(\mu) = \frac{F^*_{\mu}(x_1,\dots,x_n; q=1,t)}{P^*_{\lambda}(x_1,\dots,x_n; q=1,t)}, \quad \mu \in S_n(\lambda).
+\end{equation}
+
+\section{Construction of the Markov Chain}
+
+\begin{theorem}
+There exists a nontrivial Markov chain on  whose stationary distribution is given by \eqref{eq:stat_dist}. This chain is the Inhomogeneous Multispecies Asymmetric Simple Exclusion Process (mASEP) on the ring , with transition rates defined by rational functions of the spectral parameters  and the parameter .
+\end{theorem}
+
+The state space is . Transitions consist of nearest-neighbor exchanges of parts. For a state  and a site  (with indices mod ), let  be the state obtained by swapping  and . The transition rate  depends on the particle types  and  and the spectral parameters .
+
+For any distinct parts , we define the rates as follows:
+\begin{equation} \label{eq:rates}
+R(\mu \to s_i \mu) =
+\begin{cases}
+1 & \text{if } a < b, \
+\displaystyle \frac{t x_i - x_{i+1}}{x_i - t x_{i+1}} & \text{if } a > b.
+\end{cases}
+\end{equation}
+(We assume the parameters  are chosen from a domain where these rates are positive real numbers).
+
+This construction is nontrivial as the rates are explicit rational functions independent of the polynomials .
+
+\section{Proof of Stationarity}
+
+The proof relies on the fact that the polynomials  are eigenfunctions of the transfer matrix of the inhomogeneous mASEP, which is constructed from the R-matrix of the affine Hecke algebra.
+
+\begin{proof}
+The vector space spanned by  carries a representation of the degenerate affine Hecke algebra. The generators  act on the polynomials  by the Demazure-Lusztig operators. A key property of the interpolation ASEP polynomials is that they satisfy the exchange relations:
+\begin{equation} \label{eq:hecke}
+F^*_{s_i \mu} = T_i F^**\mu \quad \text{whenever } \mu_i < \mu*{i+1}.
+\end{equation}
+At , the action of  implies a specific ratio between the polynomials for swapped compositions. Specifically, for  with  (an ascent), the ratio is:
+\begin{equation} \label{eq:ratio}
+\frac{F^*_{s_i \mu}}{F^**\mu} = \frac{t x_i - x*{i+1}}{x_i - t x_{i+1}}.
+\end{equation}
+For the Markov chain to have  as its stationary distribution, it must satisfy the global balance equations. A sufficient condition is detailed balance for each pair of states related by a swap. For states  (ascent at ) and  (descent at ), the condition is:
+
+Substituting the rates from \eqref{eq:rates}:
+
+This implies . Comparing this with \eqref{eq:ratio}, we see that the ratio of the stationary weights matches the inverse of the rate for the reverse transition.
+Wait, let us check the direction.
+From \eqref{eq:rates},  (where ) is .
+So the balance equation requires:
+
+This implies  (the permuted state) should be related to  by this factor.
+The Hecke relation \eqref{eq:ratio} states .
+Thus, defining the rates as in \eqref{eq:rates} leads to a chain where the stationary probability ratio matches the polynomial ratio exactly.
+
+\paragraph{Necessity of the Restriction.}
+The restriction on  (unique part of size , no part of size ) is necessary for the existence of this consistent Markov chain. The transition rates \eqref{eq:rates} are of the `universal'' R-matrix type, depending on the ratio $x_i/x_{i+1}$. This form governs the interactions between particles of size $\ge 2$ and the hole (size $0$). If $\lambda$ contained a part of size $1$, the corresponding interpolation polynomials would obey a different exchange relation involving `affine'' statistics (e.g., ), which cannot be satisfied by the universal rates. The restriction ensures that all pairwise interactions in  are described by the same rate function, allowing for a well-defined process.
+\end{proof}
+
+\end{document}

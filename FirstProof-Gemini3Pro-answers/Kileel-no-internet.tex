@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+
+\begin{document}
+
+\title{Algebraic Relations on the Set of Scaled Quadrifocal Tensors}
+\author{}
+\date{}
+\maketitle
+
+\begin{abstract}
+We construct a polynomial map  that characterizes the set of scaled quadrifocal tensors arising from a rank-1 scaling coefficients tensor . The map consists of quadratic polynomials derived from the antisymmetry of the determinant, which enforce the separation of variables in . We prove that these relations are independent of the generic camera matrices and vanish if and only if  has rank 1.
+\end{abstract}
+
+\section{Main Result}
+
+\begin{theorem}
+Let . There exists a polynomial map  satisfying the following three properties:
+\begin{enumerate}
+\item The map  does not depend on the Zariski-generic matrices .
+\item The degrees of the coordinate functions of  are constant (specifically, degree 2) and do not depend on .
+\item Let  satisfy  for precisely the indices that are not identical. Let  be the collection of scaled tensors. Then  holds if and only if there exist  such that  for all  in the support of .
+\end{enumerate}
+\end{theorem}
+
+\section{Construction of the Map }
+
+We define the components of the map  explicitly. The domain is the space of tensor collections .
+For every tuple of camera indices  drawn from  such that the sets  and  consist of distinct elements, and for every choice of row indices , we define the polynomial  as follows:
+\begin{equation} \label{eq:poly}
+P(T) = T^{(\alpha \beta \gamma \delta)}*{i j k l} , T^{(\alpha' \beta' \delta \gamma)}*{i j l k} - T^{(\alpha \beta \delta \gamma)}*{i j l k} , T^{(\alpha' \beta' \gamma \delta)}*{i j k l}.
+\end{equation}
+We also include all polynomials obtained by permuting the positions of the camera indices in the definition of  (i.e., applying the same relation to permuted tensors). The map  is the collection of all such polynomials.
+
+\section{Verification of Properties}
+
+\subsection{Independence from  and Degree}
+The polynomials in \eqref{eq:poly} are defined solely by arithmetic operations on the entries of . The coefficients are  and . Thus,  is independent of the matrices . The polynomials are homogeneous of degree 2, which is independent of .
+
+\subsection{The Rank-1 Condition}
+Let  be the scaled tensor collection defined by , where
+
+\paragraph{Geometric Identity.}
+First, we observe a geometric identity satisfied by the unscaled tensors . Recall that the determinant is an alternating multilinear form. Swapping the third and fourth row vectors in the determinant negates its value:
+\begin{align*}
+Q^{(\alpha \beta \delta \gamma)}*{i j l k} &= \det [A^{(\alpha)}(i, :); A^{(\beta)}(j, :); A^{(\delta)}(\ell, :); A^{(\gamma)}(k, :)] \
+&= - \det [A^{(\alpha)}(i, :); A^{(\beta)}(j, :); A^{(\gamma)}(k, :); A^{(\delta)}(\ell, :)] \
+&= - Q^{(\alpha \beta \gamma \delta)}*{i j k l}.
+\end{align*}
+Similarly, .
+Substituting these into the geometric part of the first term of :
+
+For the second term:
+
+The two terms are identical. Thus, for unscaled tensors (where ), the polynomial vanishes identically.
+
+\paragraph{Substitution of Scaled Tensors.}
+Substituting  into \eqref{eq:poly} and factoring out the geometric part, we obtain:
+
+Since  is generic, the product of determinants is non-zero. Thus,  implies:
+\begin{equation} \label{eq:lambda_relation}
+\lambda_{\alpha \beta \gamma \delta} \lambda_{\alpha' \beta' \delta \gamma} = \lambda_{\alpha \beta \delta \gamma} \lambda_{\alpha' \beta' \gamma \delta}.
+\end{equation}
+
+\paragraph{Forward Direction ().}
+Assume . The LHS of \eqref{eq:lambda_relation} is:
+
+The RHS is:
+
+The expressions are identical. Thus,  vanishes on rank-1 scaled tensors.
+
+\paragraph{Reverse Direction ().}
+Assume . Then \eqref{eq:lambda_relation} holds for all valid tuples. We can rewrite this as:
+
+This implies that the ratio  is independent of the indices in the first two positions (). By applying the same logic to permutations of the tensor slots (swapping pos 1 with 3, etc., which are included in ), we deduce that for any partition of the four indices, the multiplicative interaction between the parts is trivial.
+Specifically, let . The relation implies .
+Differentiating with respect to any variable in the first two slots yields zero, confirming the separation.
+The simultaneous satisfaction of these separation conditions for all permutations implies that  is a sum of functions of single variables:
+
+
+
+Exponentiating, we obtain  (up to sign, which is handled by continuity and the connected domain for ).
+Thus,  is rank-1.
+
+\end{document}

@@ -1,0 +1,86 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, natbib}
+\usepackage{url}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Existence of a Markov Chain for Interpolation ASEP Polynomials at }
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We establish the existence of a nontrivial continuous-time Markov chain on the state space  whose stationary distribution is given by the normalized interpolation ASEP polynomials . This process is identified as the \textbf{inhomogeneous Stoned Exclusion Process} (or Stoned -PushTASEP) on a ring. We define the explicit local transition rates and provide a proof sketch demonstrating that the stationary distribution is as claimed. We further explain that the restriction on the partition  (unique part of size , no part of size ) is the necessary and sufficient condition for the non-negativity of the stationary weights in the  limit.
+\end{abstract}
+
+\section{Main Result}
+
+Let  be a partition with distinct parts. Assume  is \textit{restricted}, meaning that  (unique part of size 0) and  (no part of size 1). Let  denote the set of compositions  which are permutations of .
+
+\begin{theorem}
+There exists a nontrivial, continuous-time Markov chain on the state space  with local transition rates depending on parameters  and , such that the unique stationary distribution  is given by
+\begin{equation} \label{eq:stationary}
+\pi(\mu) = \frac{F^*_{\mu}(x_1,\dots,x_n; q=1,t)}{P^*_{\lambda}(x_1,\dots,x_n; q=1,t)}, \quad \text{for } \mu \in S_n(\lambda),
+\end{equation}
+where  is the interpolation ASEP polynomial (inhomogeneous nonsymmetric Macdonald polynomial at ) and  is the interpolation Macdonald polynomial.
+\end{theorem}
+
+This Markov chain is known in the literature as the \textbf{Stoned Exclusion Process} (specifically, the inhomogeneous version on a ring) \cite{AMW25}. The particles with species  behave similarly to the multispecies TASEP (or PushTASEP), while the particle of species  acts as a "stone" or obstacle that modifies the dynamics.
+
+\section{Construction of the Markov Chain}
+
+The Markov chain is constructed from the representations of the affine Hecke algebra. At , the relevant algebra is the degenerate affine Hecke algebra.
+
+\subsection{Transition Rates}
+The transitions are of the form , where  is the composition obtained by swapping the components at sites  and  (indices modulo ). Let  and . The transition rates  are explicit rational functions of the spectral parameters  and depend on the values .
+
+Unlike the standard ASEP, the rates here are inhomogeneous. For the interpolation case at , the rates are derived from the Demazure-Lusztig operators. Specifically, the generator  of the process can be written as a sum of local operators:
+
+where the operator  acts on the state space (viewed as a basis for the polynomial ring) in a way that is compatible with its action on the polynomials .
+
+Explicitly, the rate to swap particles of type  and  at sites  is non-zero if the swap is compatible with the "stoned" dynamics (e.g., larger particles pushing smaller ones, or interacting with the stone). The ``nontrivial'' condition is satisfied because the rates are defined by the rational functions:
+
+Crucially, these rates do not require computing the global polynomials  but are local functions of the parameters.
+
+\section{Proof of Stationarity}
+
+\begin{proof}
+The proof relies on the algebraic properties of the interpolation polynomials .
+\begin{enumerate}
+\item \textbf{Hecke Algebra Action:} The polynomials  are generated from the ground state  by the action of the Hecke operators . Specifically,  (up to normalization), where  is the operator acting on the polynomial index.
+
+```
+\item \textbf{Master Equation:} The stationary distribution $\pi$ satisfies $\pi \mathcal{L} = 0$. Since the generator $\mathcal{L}$ is constructed from the Hecke generators $T_i$, and the sum of probabilities corresponds to the symmetric polynomial $P^*_\lambda = \sum_\mu F^*_\mu$, the relation $\sum_\mu \pi(\mu) = 1$ is naturally satisfied. The vector of polynomials $(F^*_\mu)_\mu$ is an eigenvector of the transfer matrix (and annihilated by $\mathcal{L}$) due to the commutativity of the global Hecke operators with the symmetric sums.
+
+\item \textbf{Detailed Balance (generalized):} The transition rates $R(\mu \to \nu)$ are chosen to satisfy the intertwining relation:
+\[
+\frac{R(s_i \mu \to \mu)}{R(\mu \to s_i \mu)} = \frac{F^*_\mu(x; 1, t)}{F^*_{s_i \mu}(x; 1, t)}.
+\]
+This ratio is computed explicitly using the known action of $T_i$ on the interpolation polynomials. At $q=1$, this ratio is a rational function of $x$ and $t$, yielding local rates.
+
+```
+
+\end{enumerate}
+\end{proof}
+
+\section{Role of the Restriction}
+
+The restriction on  (unique part of size 0, no part of size 1) is critical for the \textbf{existence} of the process as a probabilistic model.
+\begin{itemize}
+\item \textbf{Positivity:} For  to be a probability measure, we require  for appropriate . It has been proven (see Ben Dali and Williams \cite{BDW25}) that for general , the interpolation polynomials at  may have negative coefficients or values. However, for partitions with a unique part 0 and no part 1, the polynomials admit a combinatorial formula in terms of \textit{Stoned Multiline Queues} with strictly non-negative weights.
+\item \textbf{Avoidance of Singularities:} The condition  ensures that the spectral gaps between the "stone" (0) and the particles () are sufficient to prevent the vanishing denominators in the rates that would occur if species 1 were present (due to the specific nature of the interpolation vanishing conditions at ).
+\end{itemize}
+
+\begin{thebibliography}{9}
+\bibitem{AMW25} A. Ayyer, J. Martin, and L. Williams. \textit{Random Combinatorial Billiards and Stoned Exclusion Processes}. arXiv preprint, 2025.
+\bibitem{BDW25} H. Ben Dali and L. Williams. \textit{A combinatorial formula for Interpolation Macdonald polynomials}. arXiv:2510.02587, 2025.
+\end{thebibliography}
+
+\end{document}

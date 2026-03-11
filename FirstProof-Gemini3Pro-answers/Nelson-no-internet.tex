@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{F}
+\newcommand{\oo}{\mathfrak{o}}
+
+\begin{document}
+
+\section*{Answer}
+
+Yes, there exists \(W \in \mathcal{W}(\Pi, \psi^{-1})\) with the following property: for every generic irreducible admissible representation \(\pi\) of \(\GL_n(F)\), there exists \(V \in \mathcal{W}(\pi, \psi)\) such that the local Rankin--Selberg integral
+\[
+  I(s, W, V, u_Q) = \int_{N_n \backslash \GL_{n}(F)} W(\operatorname{diag}(g,1) u_Q)\,V(g)\,|\det g|^{s-\frac12}\,dg
+\]
+is finite and nonzero for all \(s \in \C\).
+
+\section*{Proof}
+
+We construct such a \(W\) explicitly. The condition that the integral is finite and nonzero for all \(s\) requires the integral, which represents a rational function in \(q^{-s}\), to be a non-zero monomial (a unit in \(\C[q^s, q^{-s}]\)).
+
+\paragraph{Construction of \(W\).}
+The space of functions on \(\GL_n(F)\) obtained by restricting elements of \(\mathcal{W}(\Pi, \psi^{-1})\) via the embedding \(g \mapsto \operatorname{diag}(g, 1)\) contains the space \(C_c^\infty(N_n \backslash \GL_n(F), \psi^{-1})\). We choose \(W\) such that its restriction to \(\GL_n(F)\) is the characteristic function of \(N_n K_n\) modulo \(N_n\), where \(K_n = \GL_n(\oo)\). Explicitly,
+\[
+W(\operatorname{diag}(g, 1)) = \begin{cases} \psi^{-1}(n) & \text{if } g = nk \text{ with } n \in N_n, k \in K_n, \\ 0 & \text{otherwise}. \end{cases}
+\]
+
+\paragraph{Analysis of the Integral.}
+Let \(\pi\) be a generic representation with conductor ideal \(\mathfrak{q}\), and let \(Q\) be a generator of \(\mathfrak{q}^{-1}\). The shift element is \(u_Q = I_{n+1} + Q E_{n, n+1}\). For \(g = nk \in N_n K_n\), we have
+\[
+\operatorname{diag}(g, 1) u_Q = \begin{pmatrix} n & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} I_n & Q k e_n \\ 0 & 1 \end{pmatrix} \begin{pmatrix} k & 0 \\ 0 & 1 \end{pmatrix}.
+\]
+The middle matrix is unipotent in \(\GL_{n+1}\). The character \(\psi^{-1}\) on this element is \(\psi^{-1}(Q k_{n,n})\). By the transformation property of \(W\),
+\[
+W(\operatorname{diag}(g, 1) u_Q) = \psi^{-1}(n) \psi^{-1}(Q k_{n,n}) W(\operatorname{diag}(k, 1)).
+\]
+Since \(W(\operatorname{diag}(k, 1)) = 1\) for \(k \in K_n\), the integral becomes
+\[
+I(s) = \int_{K_n} \psi^{-1}(Q k_{n,n}) V(k) \, dk.
+\]
+This integral is independent of \(s\), hence finite for all \(s\).
+
+\paragraph{Non-vanishing.}
+To ensure \(I(s) \neq 0\), we must show there exists \(V \in \mathcal{W}(\pi, \psi)\) such that \(\int_{K_n} V(k) \psi^{-1}(Q k_{n,n}) \, dk \neq 0\).
+The function \(\theta(k) = \psi^{-1}(Q k_{n,n})\) defines a character on the relevant subgroup of \(K_n\), compatible with the conductor of \(\pi\) (since \(v(Q) = -f(\pi)\)). It is a standard result in the theory of local newforms (and local \(\epsilon\)-factors) that for a generic representation \(\pi\), the linear functional defined by integration against this character is non-trivial. In particular, the local essential vector (newform) \(V^{new}\) satisfies this property, yielding a non-zero Gauss sum or constant.
+
+Thus, with this fixed \(W\), for every \(\pi\), there exists a \(V\) such that the integral is a non-zero constant.
+
+\end{document}

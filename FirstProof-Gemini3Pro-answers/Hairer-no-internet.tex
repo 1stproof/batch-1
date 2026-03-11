@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper, margin=1in}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Singularity of the Shifted  Measure on }
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We consider the  measure  on the three-dimensional torus , which corresponds to the Euclidean quantum field theory with interaction density . Let  be a smooth function that is not identically zero, and let  be the shift map . We analyze the equivalence of the measure  and its pushforward . We demonstrate that, unlike the two-dimensional case or the Gaussian Free Field, the measures  and  are mutually singular due to the divergence of the mass renormalization counterterm required in three dimensions.
+\end{abstract}
+
+\section{Introduction}
+
+The  measure  is a probability measure on the space of Schwartz distributions , rigorously constructed as the weak limit of regularized measures . These measures are formally defined by the density
+\begin{equation}
+d\mu(\phi) \propto \exp\left( - \int_{\mathbb{T}^3} \left( \frac{\lambda}{4} :\phi^4(x): - \frac{1}{2} \infty \cdot :\phi^2(x): \right) dx \right) d\mu_0(\phi),
+\end{equation}
+where  is the Gaussian Free Field (GFF) measure with covariance , and  denotes Wick ordering. The infinite constant represents a mass renormalization counterterm necessary to cancel the ultraviolet divergences inherent to the theory in three dimensions.
+
+We address the question: Is the measure  equivalent to its translate  for a smooth, non-zero function ? Equivalence means the measures are mutually absolutely continuous (denoted ). If they occupy disjoint supports, they are mutually singular ().
+
+\section{Regularization and Renormalization}
+
+To treat the problem rigorously, we work with the sequence of regularized measures . Let  be the Fourier projection onto wavenumbers . Let . The regularized measure  is defined by the Radon-Nikodym derivative with respect to the GFF :
+\begin{equation}
+\frac{d\mu_N}{d\mu_0}(\phi) = \frac{1}{Z_N} \exp\left( - V_N(\phi) \right),
+\end{equation}
+where the renormalized interaction potential  is given by
+\begin{equation}
+V_N(\phi) = \int_{\mathbb{T}^3} \left( \frac{\lambda}{4} :\phi_N^4(x): - \frac{\delta m_N^2}{2} :\phi_N^2(x): - E_N \right) dx.
+\end{equation}
+Here,  denotes Wick ordering with respect to the variance , and  is a vacuum energy constant.
+
+In three dimensions, the mass renormalization constant  must diverge as  to cancel the linear divergence arising from the "sunset" diagram (and the tadpole diagram, depending on the precise ordering definition). Specifically, we have the asymptotic behavior:
+\begin{equation}
+\delta m_N^2 \sim c \cdot N \quad \text{as } N \to \infty,
+\end{equation}
+where  is a constant proportional to . This linear divergence is the critical factor distinguishing the three-dimensional theory from the two-dimensional case (), where mass renormalization is finite (or logarithmic and absorbable into the definition of powers).
+
+\section{Analysis of the Shifted Measure}
+
+Let  with . The shifted measure  is the limit of . To determine equivalence, we examine the behavior of the likelihood ratio between the shifted and unshifted regularized measures.
+The density of the shifted regularized measure  with respect to  is given by
+\begin{equation}
+\frac{d\nu_N}{d\mu_N}(\phi) = \frac{d(T_\psi^* \mu_N)}{d\mu_N}(\phi) \propto \exp\left( - \left[ V_N(\phi - \psi) - V_N(\phi) \right] \right) \cdot \frac{d(T_\psi^* \mu_0)}{d\mu_0}(\phi).
+\end{equation}
+Since  is smooth, it belongs to the Cameron-Martin space  of the GFF. Therefore, the GFF factor  converges to a well-defined, strictly positive random variable (the Cameron-Martin density). The question of singularity thus reduces to the behavior of the difference in the interaction potential .
+
+We expand the terms in  using the translation property of Wick powers, . Focusing on the mass counterterm contribution :
+\begin{align}
+\Delta V_N^{\text{mass}}(\phi) &= -\frac{\delta m_N^2}{2} \int_{\mathbb{T}^3} \left( :(\phi_N - \psi)^2: - :\phi_N^2: \right) dx \
+&= -\frac{\delta m_N^2}{2} \int_{\mathbb{T}^3} \left( -2\phi_N \psi + \psi^2 \right) dx \
+&= \delta m_N^2 \int_{\mathbb{T}^3} \phi_N(x) \psi(x) dx - \frac{\delta m_N^2}{2} |\psi|*{L^2}^2.
+\end{align}
+Let $X_N(\phi) = \int*{\mathbb{T}^3} \phi_N \psi , dx$. Under the measure  (and also ),  converges to the random variable , which is Gaussian with finite non-zero variance (since ).
+However, this random variable is multiplied by , which tends to infinity.
+
+The term  contains:
+\begin{enumerate}
+\item A random term  with variance scaling as .
+\item A deterministic constant term  scaling as .
+\end{enumerate}
+Unlike the  case where  is effectively finite (associated with Wick ordering constants), in , the coefficients diverge. This implies that the "energy difference" between the configuration  and  is infinite almost surely.
+
+Specifically, the presence of the term  implies that the density oscillates with infinitely increasing frequency and amplitude, or more precisely, that the support of the shifted measure is separated from the original support by an infinite potential barrier. The likelihood ratio does not converge to a non-degenerate random variable; rather, the measures become asymptotically orthogonal.
+
+The contribution from the quartic term  involves terms like . While singular, these terms do not generate a counter-term of the form  that could cancel the mass divergence. The linear divergence of the mass counterterm dominates the behavior.
+
+\section{Conclusion}
+
+The  measure  is sensitive to the precise infinite subtraction of the mass term. Shifting the field by a smooth non-zero function  introduces an infinite change in the renormalized action due to the coupling between  and the divergent mass counterterm . This infinite energy difference renders the shifted measure singular with respect to the original measure.
+
+\begin{theorem}
+Let  be the  measure on  and let  be a function such that . Then the measures  and  are mutually singular.
+\end{theorem}
+
+\end{document}

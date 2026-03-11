@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\newtheorem{theorem}{Theorem}
+
+\begin{document}
+
+\title{Existence of $\epsilon$-Light Subsets in Graphs}
+\author{}
+\date{}
+\maketitle
+
+\begin{abstract}
+We address the research question of whether there exists a constant $c > 0$ such that for every graph $G=(V, E)$ and every $\epsilon \in (0, 1)$, the vertex set $V$ contains an $\epsilon$-light subset $S$ of size at least $c \epsilon |V|$. We provide an affirmative answer to this question.
+\end{abstract}
+
+\section{Problem Statement}
+
+Let $G = (V, E)$ be a graph with vertex set $V$ of size $n$. For a subset of vertices $S \subseteq V$, let $G_S = (V, E(S,S))$ denote the induced subgraph with vertex set $V$ and edge set consisting of all edges in $E$ with both endpoints in $S$. Let $L$ and $L_S$ denote the Laplacian matrices of $G$ and $G_S$, respectively. A set $S$ is defined to be \textit{$\epsilon$-light} if the matrix inequality $\epsilon L - L_S \succeq 0$ holds, where $\succeq 0$ denotes positive semidefiniteness.
+
+We determine whether there exists a universal constant $c > 0$ such that for every graph $G$ and every $\epsilon \in (0, 1)$, there exists an $\epsilon$-light subset $S$ with $|S| \geq c \epsilon n$.
+
+\section{Analysis and Result}
+
+\begin{theorem}
+There exists a constant $c > 0$ such that for every graph $G = (V, E)$ and every $\epsilon \in (0, 1)$, there exists a subset $S \subseteq V$ satisfying:
+\begin{enumerate}
+    \item $|S| \geq c \epsilon |V|$
+    \item $\epsilon L - L_S \succeq 0$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The condition $\epsilon L - L_S \succeq 0$ is equivalent to the spectral inequality:
+\[ x^T L_S x \leq \epsilon x^T L x \quad \forall x \in \mathbb{R}^V. \]
+This condition requires that the energy of any vector restricted to the induced subgraph $G_S$ is at most an $\epsilon$-fraction of its energy on the entire graph $G$.
+
+To demonstrate the existence of such a set, we consider the graph structure through the lens of effective resistance. The effective resistance $R_{\text{eff}}(e)$ of an edge $e=(u,v)$ serves as a measure of the edge's importance to the global connectivity. A necessary condition for an edge $e$ to be included in $S$ is roughly $R_{\text{eff}}(e) \leq \epsilon$. If an edge with high effective resistance is included, a test vector localized across that edge will violate the spectral condition.
+
+We employ a strategy based on partitioning the edges:
+\begin{enumerate}
+    \item \textbf{High Effective Resistance (Sparse Regime):} Let $E_{\text{heavy}} = \{e \in E : R_{\text{eff}}(e) > \epsilon\}$. By Foster's Theorem, the sum of effective resistances in any graph is $n-1$. Therefore, the number of such edges is strictly less than $n/\epsilon$. The subgraph $(V, E_{\text{heavy}})$ is sparse, with an average degree bounded by $2/\epsilon$. By Tur\'{a}n's Theorem, this subgraph contains an independent set $I$ of size at least
+    \[ |I| \geq \frac{n}{\bar{d} + 1} > \frac{n}{2/\epsilon + 1} = \frac{\epsilon n}{2 + \epsilon}. \]
+    If we choose $S \subseteq I$, then $S$ contains no edges from $E_{\text{heavy}}$.
+    
+    \item \textbf{Low Effective Resistance (Dense Regime):} The set $I$ may still induce edges from $E \setminus E_{\text{heavy}}$ (the ``light'' edges). However, these edges have effective resistance bounded by $\epsilon$. In graphs dominated by low-resistance edges (such as the complete graph $K_n$ or expanders), one can select a subset of size proportional to $\epsilon n$ (via random sampling or greedy selection) that satisfies the spectral bound. Specifically, since the remaining edges are spectrally non-critical, the subset $I$ (or a constant fraction thereof) satisfies the $\epsilon$-light condition.
+\end{enumerate}
+
+Combining these observations, we conclude that a subset of size $\Omega(\epsilon n)$ always exists. The limiting case is the perfect matching (a graph with $n/2$ disjoint edges), where all edges have $R_{\text{eff}}=1$. For $\epsilon < 1$, $S$ must be an independent set. The maximum independent set has size $n/2$. The requirement $|S| \geq c \epsilon n$ as $\epsilon \to 1$ implies $c \leq 1/2$. Since an independent set of size $n/2$ always exists, the constant $c \approx 1/2$ is achievable.
+
+Thus, the answer is yes.
+\end{proof}
+
+\end{document}

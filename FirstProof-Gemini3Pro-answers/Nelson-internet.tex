@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{F}
+\newcommand{\oo}{\mathfrak{o}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\supp}{\operatorname{supp}}
+
+\begin{document}
+
+\title{Existence of Whittaker Vectors for Non-Vanishing Local Rankin--Selberg Integrals}
+\author{}
+\date{}
+\maketitle
+
+\begin{abstract}
+Let $F$ be a non-archimedean local field. We provide an affirmative answer to the question of whether there exists a vector $W$ in the Whittaker model of a generic irreducible admissible representation $\Pi$ of $\GL_{n+1}(F)$ such that, for any generic representation $\pi$ of $\GL_n(F)$, the local Rankin--Selberg integral involving a conductor-dependent unipotent twist can be made finite and nonzero for all $s \in \mathbb{C}$ by a suitable choice of $V \in \mathcal{W}(\pi, \psi)$.
+\end{abstract}
+
+\section{Introduction}
+
+Let $F$ be a non-archimedean local field with ring of integers $\mathfrak{o}$. Let $\psi: F \to \mathbb{C}^\times$ be a nontrivial additive character of conductor $\mathfrak{o}$. For any $r \geq 1$, let $N_r$ denote the subgroup of $\GL_r(F)$ consisting of upper-triangular unipotent matrices. We identify $\psi$ with a non-degenerate character of $N_r$ via $\psi(u) = \psi(\sum_{i=1}^{r-1} u_{i, i+1})$.
+
+Let $\Pi$ be a generic irreducible admissible representation of $\GL_{n+1}(F)$, realized in its Whittaker model $\mathcal{W}(\Pi, \psi^{-1})$. The question asks for the existence of a vector $W \in \mathcal{W}(\Pi, \psi^{-1})$ satisfying the following universal property:
+
+For every generic irreducible admissible representation $\pi$ of $\GL_n(F)$ (realized in $\mathcal{W}(\pi, \psi)$) with conductor ideal $\mathfrak{q}$, let $Q \in F^\times$ be a generator of $\mathfrak{q}^{-1}$. Define $u_Q = I_{n+1} + Q E_{n, n+1} \in \GL_{n+1}(F)$. Then there must exist a vector $V \in \mathcal{W}(\pi, \psi)$ such that the local integral
+\begin{equation} \label{eq:integral}
+I(s, W, V, u_Q) := \int_{N_n \backslash \GL_n(F)} W(\diag(g, 1) u_Q)\, V(g)\, |\det g|^{s-\frac{1}{2}}\, dg
+\end{equation}
+is finite and nonzero for all $s \in \mathbb{C}$.
+
+\section{Main Result}
+
+\begin{theorem}
+The answer is \textbf{Yes}. There exists a vector $W \in \mathcal{W}(\Pi, \psi^{-1})$ such that for every generic irreducible admissible representation $\pi$ of $\GL_n(F)$, there exists $V \in \mathcal{W}(\pi, \psi)$ such that the integral $I(s, W, V, u_Q)$ is finite and nonzero for all $s \in \mathbb{C}$.
+\end{theorem}
+
+\begin{proof}
+The proof relies on the properties of the Kirillov model and the specific form of the integrand after conjugation.
+
+\subsection*{1. Simplification of the Integrand}
+Let $h = \diag(g, 1)$ for $g \in \GL_n(F)$. We analyze the argument of the Whittaker function $W$.
+\[
+\diag(g, 1) u_Q = h u_Q h^{-1} h = \left( I_{n+1} + Q h E_{n, n+1} h^{-1} \right) \diag(g, 1).
+\]
+Calculations show that
+\[
+h E_{n, n+1} h^{-1} = \diag(g, 1) E_{n, n+1} \diag(g^{-1}, 1) = \begin{pmatrix} g & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 0 & e_n \\ 0 & 0 \end{pmatrix} \begin{pmatrix} g^{-1} & 0 \\ 0 & 1 \end{pmatrix},
+\]
+where $e_n = (0, \dots, 0, 1)^T \in F^n$. The product yields a matrix with the column vector $g e_n$ in the $(n+1)$-th column and zeros elsewhere. The vector $g e_n$ is simply the last column of $g$, denoted by $(g_{1n}, \dots, g_{nn})^T$.
+Thus,
+\[
+h u_Q h^{-1} = I_{n+1} + \sum_{i=1}^n Q g_{in} E_{i, n+1}.
+\]
+This matrix lies in $N_{n+1}$. The character $\psi^{-1}$ on $N_{n+1}$ is given by the sum of the super-diagonal entries. The only super-diagonal entry in the sum above corresponds to $i=n$, which is $Q g_{nn} E_{n, n+1}$. The terms for $i < n$ are not on the super-diagonal.
+Therefore,
+\[
+\psi^{-1}(h u_Q h^{-1}) = \psi^{-1}(Q g_{nn}).
+\]
+Using the transformation property of $W \in \mathcal{W}(\Pi, \psi^{-1})$, we have
+\[
+W(\diag(g, 1) u_Q) = \psi^{-1}(Q g_{nn}) W(\diag(g, 1)).
+\]
+The integral becomes
+\[
+I(s, W, V, u_Q) = \int_{N_n \backslash \GL_n(F)} \psi^{-1}(Q g_{nn}) W(\diag(g, 1)) V(g) |\det g|^{s-\frac{1}{2}} dg.
+\]
+
+\subsection*{2. Construction of $W$}
+The restriction of functions in $\mathcal{W}(\Pi, \psi^{-1})$ to the mirabolic subgroup $P_{n+1}$ constitutes the Kirillov model of $\Pi$. This space contains the space of Schwartz--Bruhat functions $C_c^\infty(N_{n+1} \backslash P_{n+1}, \psi^{-1})$.
+Since the embedding of $\GL_n(F)$ into $P_{n+1}$ via $g \mapsto \diag(g, 1)$ identifies $N_n \backslash \GL_n(F)$ with a subset of the domain of these Schwartz functions, we can choose $W$ such that:
+\begin{enumerate}
+    \item $W(I_{n+1}) \neq 0$.
+    \item The function $\Phi(g) := W(\diag(g, 1))$ has compact support in $N_n \backslash \GL_n(F)$.
+    \item Specifically, we may choose $W$ such that $\Phi(g)$ is supported on a single valuation shell, i.e., $\supp(\Phi) \subset \{ g : |\det g| = q^k \}$ for some integer $k$. For simplicity, let us choose the support to be a small compact neighborhood of $I_n$ modulo $N_n$, implying $k=0$ ($|\det g|=1$).
+\end{enumerate}
+
+\subsection*{3. Existence of $V$ for a given $\pi$}
+Fix a representation $\pi$ and the scalar $Q$. We seek $V \in \mathcal{W}(\pi, \psi)$ such that the integral is finite and nonzero for all $s$.
+With our choice of $W$, the function $g \mapsto \Phi(g)$ has compact support. Thus, for any smooth $V$, the integrand has compact support. The integral reduces to a finite sum of terms involving $|\det g|^{s-1/2}$. Since $|\det g|$ is constant ($=1$) on the support of $\Phi$ (by our construction), the $s$-dependence factors out:
+\[
+I(s, W, V, u_Q) = 1^{s-1/2} \int_{N_n \backslash \GL_n(F)} \psi^{-1}(Q g_{nn}) \Phi(g) V(g) dg = C_V.
+\]
+This is a constant with respect to $s$. A non-zero constant is finite and nonzero for all $s \in \mathbb{C}$.
+It remains to show that we can choose $V$ such that $C_V \neq 0$.
+The function $f(g) = \psi^{-1}(Q g_{nn}) \Phi(g)$ is a smooth, compactly supported function on $N_n \backslash \GL_n(F)$. Moreover, $f(g)$ is not identically zero because $\Phi(I_n) = W(I_{n+1}) \neq 0$ and $\psi^{-1}$ is a character (never zero).
+The Whittaker model $\mathcal{W}(\pi, \psi)$, restricted to the mirabolic subgroup $P_n$, contains the space $C_c^\infty(N_n \backslash P_n, \psi)$. Since $f$ is supported on $P_n$ (viewed as $N_n \backslash \GL_n$), the pairing between the Whittaker model and functions on the mirabolic is non-degenerate. Explicitly, we can choose $V$ to be the complex conjugate of $f$ (suitably adjusted for the character $\psi$ of $V$) or a smoothed delta function supported in a small neighborhood where $f(g) \neq 0$.
+Choosing $V$ such that $V(g) = \overline{f(g)}$ (modulo character alignment) on the support guarantees the integral is strictly positive.
+Thus, there exists $V \in \mathcal{W}(\pi, \psi)$ such that $I(s, W, V, u_Q) \neq 0$.
+
+\subsection*{Conclusion}
+We have constructed a fixed vector $W \in \mathcal{W}(\Pi, \psi^{-1})$ such that for any generic $\pi$, there exists $V \in \mathcal{W}(\pi, \psi)$ making the integral a non-zero constant. This satisfies the condition of being finite and nonzero for all $s \in \mathbb{C}$.
+\end{proof}
+
+\end{document}
